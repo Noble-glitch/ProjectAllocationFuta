@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MatchingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin');
-});
+Route::get('/addstudent', function () {
+    return view('student');
+})->name('student-sucess');
+Route::post('/addstudent', [MatchingController::class, 'getStudentAndAllocate'])->name('student-new');
+
+Route::get('/addsupervisor', function () {
+    return view('supervisor');
+})->name('supervisor-sucess');
+
+Route::post('/addsupervisor', [MatchingController::class, 'regSupervisor'])->name('supervisor-new');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard-index');
