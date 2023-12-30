@@ -29,4 +29,8 @@ class Supervisor extends Model
         'MinResearchArea',
         'keywords',
     ];
+
+    public function students(){
+        return $this->hasMany(Student::class);
+    }
 }
