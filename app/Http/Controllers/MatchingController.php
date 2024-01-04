@@ -94,7 +94,7 @@ class MatchingController extends Controller
         $studentKeywords = array_merge(
             explode(',', $student->keywords),
             explode(',', $student->researchArea),
-            explode(',', $student->thesisTitle)
+            explode(' ', $student->thesisTitle)
         );
         $supervisorKeywords = array_merge(
             explode(',', $supervisor->areaExpertise),
