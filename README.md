@@ -15,8 +15,8 @@ Open a command prompt or terminal and follow the instructions below
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/7j4n1/AllocationFUTA.git
-   cd AllocationFUTA 
+   git clone https://github.com/Noble-glitch/ProjectAllocationFuta
+   cd ProjectAllocationFuta 
    ```
 
 2. Install PHP dependencies using Composer:
