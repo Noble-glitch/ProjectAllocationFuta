@@ -22,10 +22,14 @@ Route::post('/addstudent', [MatchingController::class, 'getStudentAndAllocate'])
 Route::get('/addsupervisor', function () {
     return view('supervisor');
 })->name('supervisor-sucess');
+Route::post('/addexaminer', [MatchingController::class, 'regSupervisor'])->name('examiner-new');
 
-Route::post('/addsupervisor', [MatchingController::class, 'regSupervisor'])->name('supervisor-new');
-
+Route::get('/addthesis', function () {
+    return view('thesis');
+})->name('thesis-sucess');
+Route::post('/addthesis', [MatchingController::class, 'regThesis'])->name('thesis-new');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard-index');
+    return view('dashboard');})->name('dashboard-index');
+
+

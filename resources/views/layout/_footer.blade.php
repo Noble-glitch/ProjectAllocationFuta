@@ -1,7 +1,7 @@
         </main>
  <!-- Main footer -->
         <footer class="flex items-center justify-between flex-shrink-0 p-4 border-t max-h-14">
-          <div>K-WD &copy; 2020</div>
+          <div>FirstLine &copy; 2024</div>
           <!-- <div class="text-sm">
             Made by
             <a

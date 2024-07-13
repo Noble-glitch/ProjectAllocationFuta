@@ -4,34 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Supervisor;
 
-class Supervisor extends Model
+class Student extends Model
 {
     use HasFactory;
 
-     /**
-     * The attributes that are mass assignable.
-     *
+    /**
+     *  The attributes that are mass assignable
      * @var array<int, string>
      */
+
     protected $fillable = [
-        'title',
+        'student_id',
         'email',
         'firstName',
         'middleName',
         'lastName',
         'school',
         'department',
-        'gender',
-        'status',
-        'areaExpertise',
+        'program',
+        'thesisTitle',
         'researchArea',
-        'MajResearchArea',
-        'MinResearchArea',
+        'isAssigned',
+        'supervisor_id',
         'keywords',
     ];
 
-    public function students(){
-        return $this->hasMany(Student::class);
+
+    public function supervisor(){
+        return $this->belongsTo(Supervisor::class);
     }
 }

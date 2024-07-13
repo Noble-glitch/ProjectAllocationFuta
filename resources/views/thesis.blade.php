@@ -6,12 +6,12 @@
 <div
 class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row"
 >
-<h1 class="text-2xl font-semibold whitespace-nowrap">Student Registration</h1>
+<h1 class="text-2xl font-semibold whitespace-nowrap">Student Thesis Registration</h1>
 
 </div>
 
 <!-- Start Content -->
-<form action="{{ route('student-new') }}" method="post" class="mt-8">
+<form action="{{ route('thesis-new') }}" method="post" class="mt-8">
     @csrf
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -78,16 +78,6 @@ class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:item
             @enderror
         </div>
         <div>
-            <label for="keywords" class="block text-gray-700 font-bold mb-2">Keywords(separate by comma)</label>
-            <input type="text" name="keywords" id="keywords" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('keywords') border-red-500 @enderror" 
-                value="{{ old('keywords') }}">
-            @error('keywords')
-                <span class="text-red-500 text-xs italic">{{ $message }}</span>
-            @enderror
-        </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
             <label for="thesisTitle" class="block text-gray-700 font-bold mb-2">Thesis Title</label>
             <input type="text" name="thesisTitle" id="thesisTitle" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('thesisTitle') border-red-500 @enderror" 
                 value="{{ old('thesisTitle') }}">
@@ -95,8 +85,19 @@ class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:item
                 <span class="text-red-500 text-xs italic">{{ $message }}</span>
             @enderror
         </div>
+        
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-            <label for="researchArea" class="block text-gray-700 font-bold mb-2">Research Area</label>
+            <label for="keywords" class="block text-gray-700 font-bold mb-2">Thesis Keywords(separate by comma)</label>
+            <input type="text" name="keywords" id="keywords" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('keywords') border-red-500 @enderror" 
+                value="{{ old('keywords') }}">
+            @error('keywords')
+                <span class="text-red-500 text-xs italic">{{ $message }}</span>
+            @enderror
+        </div>
+        <div>
+            <label for="researchArea" class="block text-gray-700 font-bold mb-2">Thesis Research Area</label>
             <input type="text" name="researchArea" id="researchArea" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('researchArea') border-red-500 @enderror" 
                 value="{{ old('researchArea') }}">
             @error('researchArea')

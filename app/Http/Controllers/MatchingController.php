@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Supervisor;
+use App\Models\Thesis;
 use Illuminate\Support\Facades\Validator;
 
 class MatchingController extends Controller
@@ -88,6 +89,84 @@ class MatchingController extends Controller
         
         // }
     }
+
+    public function regThesis(Request $request)
+    {
+
+        $student = $request->all();
+        $validate = Validator::make($student, [
+            'student_id' => 'required|string',
+            'email' => 'required|string|email',
+            'firstName' => 'required|string',
+            'lastName' => 'required|string',
+            'school' => 'required|string',
+            'department' => 'required|string',
+            'program' => 'required|string',
+            'keywords' => 'required|string',
+            'thesisTitle' => 'required|string',
+            'researchArea' => 'required|string',
+
+        ]);
+
+        if ($validate->fails()) {
+            // return to the previous location with validation errors 
+            // and retain the inputs
+            notify()->error('Some fields are required.');
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+        
+        // $unassignedStudents = Student::where('supervisor_id', null)->get();
+
+        // foreach ($unassignedStudents as $student) {
+        $eligibleSupervisors = Supervisor::has('students', '<', 2)->get();
+
+        $matchingScores = [];
+        foreach ($eligibleSupervisors as $supervisor) {
+            $matchingScore = $this->calculateMatchingScore($request, $supervisor);
+            $matchingScores[$supervisor->id] = $matchingScore;
+        }
+
+        $filteredSupervisors = array_filter($matchingScores, function ($score) {
+            return $score > 0; // Adjust threshold as needed
+        });
+
+        // create new student object
+        $newStudent = new Student();
+        $newStudent->student_id = $student['student_id'];
+        $newStudent->email = $student['email'];
+        $newStudent->firstName = $student['firstName'];
+        if($request->has('middleName'))
+            $newStudent->middleName = $student['middleName'];
+        $newStudent->lastName = $student['lastName'];
+        $newStudent->school = $student['school'];
+        $newStudent->department = $student['department'];
+        $newStudent->program = $student['program'];
+        $newStudent->keywords = $student['keywords'];
+        $newStudent->thesisTitle = $student['thesisTitle'];
+        $newStudent->researchArea = $student['researchArea'];
+
+        $message = "";
+
+        if ($filteredSupervisors) {
+            $selectedSupervisorId = array_rand($filteredSupervisors);
+            $newStudent->supervisor_id = $selectedSupervisorId;
+            // $newStudent->save();
+            $message .= "Student details saved successfully. Hurray!! Matching Allocation found";
+        } else {
+            // Handle unmatched student
+            $message .= "Student details saved successfully. Oops!! No matching Allocation found";
+        }
+        // Save the student details
+        $newStudent->save();
+
+        // set notification
+        notify()->success($message);
+        
+        return redirect()->route('student-sucess');
+        
+        // }
+    }
+    
 
     private function calculateMatchingScore($student, $supervisor)
     {
